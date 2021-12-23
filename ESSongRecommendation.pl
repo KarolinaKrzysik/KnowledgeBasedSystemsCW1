@@ -28,20 +28,20 @@ start:-
 	
 collect_personality:-
 	write('What is your personality type?: '),nl,nl,
-	getCorrectInput(Personality),nl.
-	/*(Personality='intj';Personality='intp';Personality='entj';Personality='entp';
+	getCorrectInput(Personality),nl,
+	(Personality='intj';Personality='intp';Personality='entj';Personality='entp';
 	Personality='infj';Personality='infp';Personality='enfj';Personality='enfp';
 	Personality='istj';Personality='isfj';Personality='estj';Personality='esfj';
 	Personality='istp';Personality='isfp';Personality='estp';Personality='esfp'),
-	assertz(personality(Personality)),
+	assertz(personality(Personality));
 	(Personality='help'),
-	retract(personality(Personality)),
-	fail.
 	giveSupportQuestionsBroad(Question),
-	write(Question),nl,
+	write(Question),nl,nl,
 	getCorrectOption(OneOfFour),nl,
-	assertz(oneOfFour(OneOfFour)).*/
+	assertz(oneOfFour(OneOfFour)),
+	fail.
 	
+collect_personality.
 /*-----------------------------------------------------------------------------------*/
 /* Ensure user typed existed personality type or asks for help ----------------------*/
 /*-----------------------------------------------------------------------------------*/
@@ -83,13 +83,12 @@ check('esfp').
 check('help').
 
 /*-----------------------------------------------------------------------------------*/
-/* Ensure user typed one of the two letters ----------------------*/
+/* Ensure user typed one of the two letters -----------------------------------------*/
 /*-----------------------------------------------------------------------------------*/
 
 getCorrectOption(X):-
 	repeat,
-	write('Please choose from following options:'),nl,
-	write('Type one or two based on your personality trait'),nl,
+	write('Type one or two'),nl,
 	read(Z),nl,
 	checkOption(Z),
 	X=Z,!.
@@ -101,4 +100,7 @@ checkOption('two').
 /* 4 questions about characteristics forming personality type -----------------------*/
 /*-----------------------------------------------------------------------------------*/
 
-giveSupportQuestionsBroad('Are you Introvert- one or Extrovert- two?: ').
+giveSupportQuestionsBroad('Are you Introvert=> one or Extrovert=> two?: ').
+giveSupportQuestionsBroad('Are you Intuitive=> one or Observant=> two?: ').
+giveSupportQuestionsBroad('Are you Thinking=> one or Feeling=> two?: ').
+giveSupportQuestionsBroad('Are you Judging=> one or Prospecting=> two?: ').
