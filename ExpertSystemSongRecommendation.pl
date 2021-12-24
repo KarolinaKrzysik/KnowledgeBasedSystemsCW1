@@ -35,12 +35,16 @@ suggest_song:-
 /*-----------------------------------------------------------------------------------*/
 start:-
 	nl,nl,nl,nl,
-	write('------------------------------------------'),nl,
-	write('------- SONG RECOMMENDATION SYSTEM -------'),nl,
-	write('------------------------------------------'),nl,nl,
+	write('------------------------------------------------------------'),nl,
+	write('---------------- SONG RECOMMENDATION SYSTEM ----------------'),nl,
+	write('------------------------------------------------------------'),nl,nl,
 	write('Please answer the following questions'),nl,nl,
 	write('You MUST use ONLY ONE of the given options'),nl,
-	write('Spell correctly, end phrase with full stop and click enter'),nl,nl,nl,nl.
+	write('Spell correctly, end phrase with full stop and click enter'),nl,nl,
+	
+	write('Type why to find out how question is relevant for suggesting a song for your personality'),nl,
+	write('Type how to discover why particular song was recommended'),nl,
+	write('You can ask why or how whenever you see =>why or =>how phrase respectively under question'),nl,nl,nl,nl,nl.
 	
 	
 /*-----------------------------------------------------------------------------------*/
@@ -48,17 +52,28 @@ start:-
 /*-----------------------------------------------------------------------------------*/
 	
 collect_personality:-
-	write('What is your personality type?: '),nl,nl,
+	write('What is your personality type code?: '),nl,nl,
 	getCorrectInput(Personality),nl,
+	(((Personality='why'),
+	write('.................................................................................................'),nl,nl,
+	write('Personality type code indicates personality type you have.'),nl,
+	write('Personality type along mood is one of the factors which song recommendation is based on.'),nl,
+	write('Certain personality types prefer certain music genres to other genres based on statistical data.'),nl,
+	write('.................................................................................................'),
+	nl,nl,
+	collect_personality);
+	
 	(Personality='intj';Personality='intp';Personality='entj';Personality='entp';
 	Personality='infj';Personality='infp';Personality='enfj';Personality='enfp';
 	Personality='istj';Personality='isfj';Personality='estj';Personality='esfj';
 	Personality='istp';Personality='isfp';Personality='estp';Personality='esfp'),
 	assertz(personality(Personality));
-	(Personality='help'),
-	giveHelp.
 	
+	((Personality='help'),
+	giveHelp)).
 	
+
+
 
 /*-----------------------------------------------------------------------------------*/
 /* Ensure user typed existed personality type or asks for help ----------------------*/
@@ -71,7 +86,8 @@ getCorrectInput(X):-
 	write('Diplomats: infj, infp, enfj, enfp'),nl,
 	write('Sentinels: istj, isfj, estj, esfj'),nl,
 	write('Explorers: istp, isfp, estp, esfp'),nl,nl,
-	write('If you do not know your personality type, type help'),nl,nl,nl,nl,
+	write('If you do not know your personality type code, type help'),nl,
+	write('=>why'),nl,nl,nl,nl,
 	read(Z),nl,
 	check(Z),
 	X=Z,!.				
@@ -99,6 +115,8 @@ check('estp').
 check('esfp').
 /*Help*/
 check('help').
+/*Why*/
+check('why').
 
 /*-----------------------------------------------------------------------------------*/
 /* Help determine personality type --------------------------------------------------*/
@@ -161,7 +179,7 @@ giveHelp:-
 
 getCorrectOptionIntrovertExtrovert(X):-
 	repeat,
-	write('Type i, e or test1'),nl,
+	write('Type i, e or test1: '),nl,
 	read(Z),nl,
 	checkOptionIntrovertExtrovert(Z),
 	X=Z,!.
@@ -176,7 +194,7 @@ checkOptionIntrovertExtrovert('test1').
 
 getCorrectOptionIntuitiveObservant(X):-
 	repeat,
-	write('Type n, s or test2'),nl,
+	write('Type n, s or test2: '),nl,
 	read(Z),nl,
 	checkOptionIntuitiveObservant(Z),
 	X=Z,!.
@@ -191,7 +209,7 @@ checkOptionIntuitiveObservant('test2').
 
 getCorrectOptionThinkingFeeling(X):-
 	repeat,
-	write('Type t, f or or test3'),nl,
+	write('Type t, f or or test3: '),nl,
 	read(Z),nl,
 	checkOptionThinkingFeeling(Z),
 	X=Z,!.
@@ -206,7 +224,7 @@ checkOptionThinkingFeeling('test3').
 
 getCorrectOptionJudgingProspecting(X):-
 	repeat,
-	write('Type j, p or test4'),nl,
+	write('Type j, p or test4: '),nl,
 	read(Z),nl,
 	checkOptionJudgingProspecting(Z),
 	X=Z,!.
@@ -220,9 +238,8 @@ checkOptionJudgingProspecting('test4').
 
 
 test1:-
-	write('This test is to determine whether you are an Introvert or Extrovert'),nl,nl,
-	write('Respond to statements, if they are more true or false about you'),nl,
-	write('Lack of clarity of answer is fine'),nl,
+	write('This test is to determine whether you are an Introvert or Extrovert.'),nl,nl,
+	write('Respond to statements'),nl,
 	write('If statement is 0-49% true => answer f, if its 50-100% true => answer t'),nl,nl,nl,nl,
 	questionsIntrovertExtrovert(Num,QIntExt),
 	write(QIntExt),nl,
@@ -239,9 +256,8 @@ test1.
 /*-----------------------------------------------------------------------------------*/
 
 test2:-
-	write('This test is to determine whether you are an Intuitive or Observant'),nl,nl,
-	write('Respond to statements, if they are more true or false about you'),nl,
-	write('Lack of clarity of answer is fine'),nl,
+	write('This test is to determine whether you are an Intuitive or Observant.'),nl,nl,
+	write('Respond to statements'),nl,
 	write('If statement is 0-49% true => answer f, if its 50-100% true => answer t'),nl,nl,nl,nl,
 	questionsIntuitiveObservant(NumNS,QIntObs),
 	write(QIntObs),nl,
@@ -259,8 +275,7 @@ test2.
 
 test3:-
 	write('This test is to determine whether you are a Thinking or Feeling.'),nl,nl,
-	write('Respond to statements, if they are more true or false about you'),nl,
-	write('Lack of clarity of answer is fine'),nl,
+	write('Respond to statements'),nl,
 	write('If statement is 0-49% true => answer f, if its 50-100% true => answer t'),nl,nl,nl,nl,
 	questionsThinkingFeeling(NumTF,QThiFee),
 	write(QThiFee),nl,
@@ -278,8 +293,7 @@ test3.
 
 test4:-
 	write('This test is to determine whether you are a Judging or Prospecting.'),nl,nl,
-	write('Respond to statements, if they are more true or false about you'),nl,
-	write('Lack of clarity of answer is fine'),nl,
+	write('Respond to statements'),nl,
 	write('If statement is 0-49% true => answer f, if its 50-100% true => answer t'),nl,nl,nl,nl,
 	questionsJudgingProspecting(NumJP,QJudPro),
 	write(QJudPro),nl,
@@ -297,7 +311,7 @@ test4.
 
 getTrueFalse(X):-
 	repeat,
-	write('Type t or f'),nl,
+	write('Type t or f: '),nl,
 	read(Z),nl,
 	checkTrueFalse(Z),
 	X=Z,!.
@@ -429,7 +443,7 @@ collect_mood:-
 
 getCorrectMood(X):-
 	repeat,
-	write('Type good or bad'),nl,
+	write('Type good or bad: '),nl,
 	read(Z),nl,
 	checkMood(Z),
 	X=Z,!.
@@ -444,21 +458,19 @@ checkMood('bad').
 collect_preferred_genre:-
 	personalityAndGenres(No,Code,G1,G2,G3),
 	nl,nl,nl,nl,
-	write('Recommended genres for your personality type:'),nl,
+	write('Recommended genres for '),write(Code),write(' personality type: '),nl,
 	write(G1),nl,
 	write(G2),nl,
 	write(G3),nl,nl,
 	write('Choose from the 3 above options for a song tailored to your personality type'),nl,
-	write('OR If you are unhappy about the 3 genres, type your own genre'),nl,nl,nl,nl,
+	write('UNLESS happy about the 3 genres, type your own genre'),nl,nl,nl,nl,
 	getAllowedGenre(GenrePreferation),
 	assertz(genrePreferation(GenrePreferation)).
 	
 	
-	
-	
 
 /*-----------------------------------------------------------------------------------*/
-/* Check user types one of the allowed genres Architect -----------------------------*/
+/* Check user types one of the allowed genres ---------------------------------------*/
 /*-----------------------------------------------------------------------------------*/
 
 getAllowedGenre(X):-
@@ -598,7 +610,7 @@ questionsIntuitiveObservant(3,'My mind often drifts off during a conversation.')
 
 questionsThinkingFeeling(1,'I make decisions with my head rather than with heart.').
 questionsThinkingFeeling(2,'I restrain from acting when experiencing extreme emotions.').
-questionsThinkingFeeling(3,'I assess differen possibilities using logic and scientific approach.').
+questionsThinkingFeeling(3,'I assess different possibilities using logic and scientific approach.').
 
 /*------------------------------------------------------------------------------------*/
 /* Questions for Judging vs Prospecting ---------------------------------------------*/
