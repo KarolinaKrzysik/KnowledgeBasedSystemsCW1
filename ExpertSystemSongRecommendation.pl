@@ -105,7 +105,7 @@ check('help').
 /*-----------------------------------------------------------------------------------*/
 
 giveHelp:-
-	giveSupportQuestionsBroad1(Question1),
+	(giveSupportQuestionsBroad1(Question1),
 	write(Question1),nl,nl,
 	getCorrectOptionIntrovertExtrovert(OneOfFour),nl,
 	(OneOfFour='i';OneOfFour='e'),
@@ -114,41 +114,42 @@ giveHelp:-
 	test1,
 	checkIfIntrovert(Char, Display),nl,
 	write(Display),nl,nl,
-	assertz(oneOfFour(Char)),
+	assertz(oneOfFour(Char))),
 	
-	giveSupportQuestionsBroad2(Question2),
+	
+	(giveSupportQuestionsBroad2(Question2),
 	write(Question2),nl,nl,
 	getCorrectOptionIntuitiveObservant(SecondOfFour),nl,
-	(SecondOfFour='n';SecondOfFour='s'),
-	assertz(oneOfFour(SecondOfFour));
+	((SecondOfFour='n';SecondOfFour='s'),
+	assertz(oneOfFour(SecondOfFour)));
 	(SecondOfFour='test2'),
 	test2,
 	checkIfIntuitive(Char2, Display2),nl,
 	write(Display2),nl,nl,
-	assertz(oneOfFour(Char2)),
+	assertz(oneOfFour(Char2))),
 	
-	giveSupportQuestionsBroad3(Question3),
+	(giveSupportQuestionsBroad3(Question3),
 	write(Question3),nl,nl,
 	getCorrectOptionThinkingFeeling(ThirdOfFour),nl,
-	(ThirdOfFour='t';ThirdOfFour='f'),
-	assertz(oneOfFour(ThirdOfFour));
+	((ThirdOfFour='t';ThirdOfFour='f'),
+	assertz(oneOfFour(ThirdOfFour)));
 	(ThirdOfFour='test3'),
 	test3,
 	checkIfThinking(Char3, Display3),nl,
 	write(Display3),nl,nl,
-	assertz(oneOfFour(Char3)),
+	assertz(oneOfFour(Char3))),
 	
 	
-	giveSupportQuestionsBroad4(Question4),
+	(giveSupportQuestionsBroad4(Question4),
 	write(Question4),nl,nl,
 	getCorrectOptionJudgingProspecting(FourthOfFour),nl,
-	(FourthOfFour='t';FourthOfFour='f'),
-	assertz(oneOfFour(FourthOfFour));
+	((FourthOfFour='j';FourthOfFour='p'),
+	assertz(oneOfFour(FourthOfFour)));
 	(FourthOfFour='test4'),
 	test4,
 	checkIfJudging(Char4, Display4),nl,
 	write(Display4),nl,nl,
-	assertz(oneOfFour(Char4)),
+	assertz(oneOfFour(Char4))),
 	
 	personalityType(Number,PersonalityCode,Information),nl,nl,
 	write(Information),
@@ -175,13 +176,14 @@ checkOptionIntrovertExtrovert('test1').
 
 getCorrectOptionIntuitiveObservant(X):-
 	repeat,
-	write('Type n or s'),nl,
+	write('Type n, s or test2'),nl,
 	read(Z),nl,
 	checkOptionIntuitiveObservant(Z),
 	X=Z,!.
 	
 checkOptionIntuitiveObservant('n').
 checkOptionIntuitiveObservant('s').
+checkOptionIntuitiveObservant('test2').
 
 /*-----------------------------------------------------------------------------------*/
 /* Ensure user chose thinking t or feeling f ----------------------------------------*/
@@ -189,13 +191,14 @@ checkOptionIntuitiveObservant('s').
 
 getCorrectOptionThinkingFeeling(X):-
 	repeat,
-	write('Type t or f'),nl,
+	write('Type t, f or or test3'),nl,
 	read(Z),nl,
 	checkOptionThinkingFeeling(Z),
 	X=Z,!.
 	
 checkOptionThinkingFeeling('t').
 checkOptionThinkingFeeling('f').
+checkOptionThinkingFeeling('test3').
 
 /*-----------------------------------------------------------------------------------*/
 /* Ensure user chose judging j or prospecting p -------------------------------------*/
@@ -203,14 +206,14 @@ checkOptionThinkingFeeling('f').
 
 getCorrectOptionJudgingProspecting(X):-
 	repeat,
-	write('Type j or p'),nl,
+	write('Type j, p or test4'),nl,
 	read(Z),nl,
 	checkOptionJudgingProspecting(Z),
 	X=Z,!.
 	
 checkOptionJudgingProspecting('j').
 checkOptionJudgingProspecting('p').
-
+checkOptionJudgingProspecting('test4').
 /*-----------------------------------------------------------------------------------*/
 /* Test introvert or extrovert-------------------------------------------------------*/
 /*-----------------------------------------------------------------------------------*/
@@ -223,10 +226,10 @@ test1:-
 	write('If statement is 0-49% true => answer f, if its 50-100% true => answer t'),nl,nl,nl,nl,
 	questionsIntrovertExtrovert(Num,QIntExt),
 	write(QIntExt),nl,
-	getTrueFalse(TrueFalse),
-	((TrueFalse='f'),
+	getTrueFalse(TrueFalse1),
+	((TrueFalse1='f'),
 	assertz(introvert(Num));
-	TrueFalse='t',
+	(TrueFalse1='t'),
 	assertz(extrovert(Num))),
 	fail.
 test1.
@@ -242,11 +245,11 @@ test2:-
 	write('If statement is 0-49% true => answer f, if its 50-100% true => answer t'),nl,nl,nl,nl,
 	questionsIntuitiveObservant(NumNS,QIntObs),
 	write(QIntObs),nl,
-	getTrueFalse(TrueFalse),
-	((TrueFalse='f'),
-	assertz(observant(Num));
-	TrueFalse='t',
-	assertz(intuitive(Num))),
+	getTrueFalse(TrueFalse2),
+	((TrueFalse2='f'),
+	assertz(observant(NumNS));
+	(TrueFalse2='t'),
+	assertz(intuitive(NumNS))),
 	fail.
 test2.
 
@@ -261,11 +264,11 @@ test3:-
 	write('If statement is 0-49% true => answer f, if its 50-100% true => answer t'),nl,nl,nl,nl,
 	questionsThinkingFeeling(NumTF,QThiFee),
 	write(QThiFee),nl,
-	getTrueFalse(TrueFalse),
-	((TrueFalse='f'),
-	assertz(feeling(Num));
-	TrueFalse='t',
-	assertz(thinking(Num))),
+	getTrueFalse(TrueFalse3),
+	((TrueFalse3='f'),
+	assertz(feeling(NumTF));
+	(TrueFalse3='t'),
+	assertz(thinking(NumTF))),
 	fail.
 test3.
 
@@ -280,11 +283,11 @@ test4:-
 	write('If statement is 0-49% true => answer f, if its 50-100% true => answer t'),nl,nl,nl,nl,
 	questionsJudgingProspecting(NumJP,QJudPro),
 	write(QJudPro),nl,
-	getTrueFalse(TrueFalse),
-	((TrueFalse='f'),
-	assertz(prospecting(Num));
-	TrueFalse='t',
-	assertz(judging(Num))),
+	getTrueFalse(TrueFalse4),
+	((TrueFalse4='f'),
+	assertz(prospecting(NumJP));
+	(TrueFalse4='t'),
+	assertz(judging(NumJP))),
 	fail.
 test4.
 
@@ -302,61 +305,45 @@ getTrueFalse(X):-
 checkTrueFalse('t').
 checkTrueFalse('f').	
 
+
 /*-----------------------------------------------------------------------------------*/
 /* Conditions for Introverts vs Extroverts ------------------------------------------*/
 /*-----------------------------------------------------------------------------------*/
 
-checkIfIntrovert(i, 'You are an Introvert.'):-introvert(1),introvert(2),introvert(3).
-checkIfIntrovert(i, 'You are an Introvert.'):-introvert(1),introvert(2).
-checkIfIntrovert(i, 'You are an Introvert.'):-introvert(1),introvert(3).
-checkIfIntrovert(i, 'You are an Introvert.'):-introvert(2),introvert(3).
-
-checkIfIntrovert(e, 'You are an Extrovert.'):-extrovert(1),extrovert(2),extrovert(3).
-checkIfIntrovert(e, 'You are an Extrovert.'):-extrovert(1),extrovert(2).
-checkIfIntrovert(e, 'You are an Extrovert.'):-extrovert(1),extrovert(3).
-checkIfIntrovert(e, 'You are an Extrovert.'):-extrovert(2),extrovert(3).
+checkIfIntrovert(i, 'You are an Introvert.'):-(introvert(1),introvert(2),introvert(3));
+(introvert(1),introvert(2));(introvert(1),introvert(3));(introvert(2),introvert(3)).
+checkIfIntrovert(e, 'You are an Extrovert.'):-(extrovert(1),extrovert(2),extrovert(3));
+(extrovert(1),extrovert(2));(extrovert(1),extrovert(3));(extrovert(2),extrovert(3)).
 
 /*-----------------------------------------------------------------------------------*/
 /* Conditions for Intuitive vs Observant ------------------------------------------*/
 /*-----------------------------------------------------------------------------------*/
 
-checkIfIntuitive(n, 'You are an Intuitive.'):-intuitive(1),intuitive(2),intuitive(3).
-checkIfIntuitive(n, 'You are an Intuitive.'):-intuitive(1),intuitive(2).
-checkIfIntuitive(n, 'You are an Intuitive.'):-intuitive(1),intuitive(3).
-checkIfIntuitive(n, 'You are an Intuitive.'):-intuitive(2),intuitive(3).
+checkIfIntuitive(n, 'You are an Intuitive.'):-(intuitive(1),intuitive(2),intuitive(3));
+(intuitive(1),intuitive(2));(intuitive(1),intuitive(3));(intuitive(2),intuitive(3)).
+checkIfIntuitive(s, 'You are an Observant.'):-(observant(1),observant(2),observant(3));
+(observant(1),observant(2));(observant(1),observant(3));(observant(2),observant(3)).
 
-checkIfIntuitive(s, 'You are an Observant.'):-observant(1),observant(2),observant(3).
-checkIfIntuitive(s, 'You are an Observant.'):-observant(1),observant(2).
-checkIfIntuitive(s, 'You are an Observant.'):-observant(1),observant(3).
-checkIfIntuitive(s, 'You are an Observant.'):-observant(2),observant(3).
 
 /*-----------------------------------------------------------------------------------*/
 /* Conditions for Thinking vs Feeling -----------------------------------------------*/
 /*-----------------------------------------------------------------------------------*/
 
-checkIfThinking(t, 'You are a Thinking.'):-thinking(1),thinking(2),thinking(3).
-checkIfThinking(t, 'You are a Thinking.'):-thinking(1),thinking(2).
-checkIfThinking(t, 'You are a Thinking.'):-thinking(1),thinking(3).
-checkIfThinking(t, 'You are a Thinking.'):-thinking(2),thinking(3).
+checkIfThinking(t, 'You are a Thinking.'):-(thinking(1),thinking(2),thinking(3));
+(thinking(1),thinking(2));(thinking(1),thinking(3));(thinking(2),thinking(3)).
+checkIfThinking(f, 'You are a Feeling.'):-(feeling(1),feeling(2),feeling(3));
+(feeling(1),feeling(2));(feeling(1),feeling(3));(feeling(2),feeling(3)).
 
-checkIfThinking(f, 'You are a Feeling.'):-feeling(1),feeling(2),feeling(3).
-checkIfThinking(f, 'You are a Feeling.'):-feeling(1),feeling(2).
-checkIfThinking(f, 'You are a Feeling.'):-feeling(1),feeling(3).
-checkIfThinking(f, 'You are a Feeling.'):-feeling(2),feeling(3).
 
 /*-----------------------------------------------------------------------------------*/
 /* Conditions for Judging vs Prospecting --------------------------------------------*/
 /*-----------------------------------------------------------------------------------*/
 
-checkIfJudging(j, 'You are a Judging.'):-judging(1),judging(2),judging(3).
-checkIfJudging(j, 'You are a Judging.'):-judging(1),judging(2).
-checkIfJudging(j, 'You are a Judging.'):-judging(1),judging(3).
-checkIfJudging(j, 'You are a Judging.'):-judging(2),judging(3).
+checkIfJudging(j, 'You are a Judging.'):-(judging(1),judging(2),judging(3));
+(judging(1),judging(2));(judging(1),judging(3));(judging(2),judging(3)).
+checkIfJudging(p, 'You are a Prospecting.'):-(prospecting(1),prospecting(2),prospecting(3));
+(prospecting(1),prospecting(2));(prospecting(1),prospecting(3));(prospecting(2),prospecting(3)).
 
-checkIfJudging(p, 'You are a Prospecting.'):-prospecting(1),prospecting(2),prospecting(3).
-checkIfJudging(p, 'You are a Prospecting.'):-prospecting(1),prospecting(2).
-checkIfJudging(p, 'You are a Prospecting.'):-prospecting(1),prospecting(3).
-checkIfJudging(p, 'You are a Prospecting.'):-prospecting(2),prospecting(3).
 
 /*-----------------------------------------------------------------------------------*/
 /* 4 questions about characteristics forming personality type -----------------------*/
@@ -618,7 +605,7 @@ questionsThinkingFeeling(3,'I assess differen possibilities using logic and scie
 /*-----------------------------------------------------------------------------------*/
 
 questionsJudgingProspecting(1,'I stick to the plan rather than going with the flow.').
-questionsJudgingProspecting(2,'Duties and responsibilities are above everythign else.').
+questionsJudgingProspecting(2,'Duties and responsibilities are above everything else.').
 questionsJudgingProspecting(3,'I prepare a lot of back up plans.').
 
 
