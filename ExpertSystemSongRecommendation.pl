@@ -24,6 +24,19 @@ judging(a).
 prospecting(a).
 
 suggest_song:-
+
+	retractall(personality(_)),
+	retractall(genrePreferation(_)),
+	retractall(mood(_)),
+	retractall(oneOfFour(_)),
+	retractall(introvert(_)),
+	retractall(extrovert(_)),
+	retractall(intuitive(_)),
+	retractall(observant(_)),
+	retractall(feeling(_)),
+	retractall(thinking(_)),
+	retractall(judging(_)),
+	retractall(prospecting(_)),
 	start,
 	write('What is your personality type code?: '),nl,nl,
 	collect_personality,
@@ -38,7 +51,21 @@ suggest_song:-
 	collect_preferred_genre,nl,
 	write('What is your current mood, good or bad?: '),nl,nl,
 	collect_mood,
-	showSong.
+	showSong,
+	/*Clean database for next usage of system*/
+	retractall(personality(_)),
+	retractall(genrePreferation(_)),
+	retractall(mood(_)),
+	retractall(oneOfFour(_)),
+	retractall(introvert(_)),
+	retractall(extrovert(_)),
+	retractall(intuitive(_)),
+	retractall(observant(_)),
+	retractall(feeling(_)),
+	retractall(thinking(_)),
+	retractall(judging(_)),
+	retractall(prospecting(_)).
+	
 	
 /*-----------------------------------------------------------------------------------*/
 /* User interface Initiate System----------------------------------------------------*/
