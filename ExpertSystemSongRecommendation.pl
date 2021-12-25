@@ -25,8 +25,18 @@ prospecting(a).
 
 suggest_song:-
 	start,
+	write('What is your personality type code?: '),nl,nl,
 	collect_personality,
-	collect_preferred_genre,
+	personalityAndGenres(No,Code,G1,G2,G3),
+	nl,nl,nl,nl,
+	write('Recommended genres for '),write(Code),write(' personality type: '),nl,
+	write(G1),nl,
+	write(G2),nl,
+	write(G3),nl,nl,
+	write('Choose from the 3 above options for a song tailored to your personality type'),nl,
+	write('UNLESS happy about the 3 genres, type your own genre'),nl,nl,nl,nl,
+	collect_preferred_genre,nl,
+	write('What is your current mood, good or bad?: '),nl,nl,
 	collect_mood,
 	showSong.
 	
@@ -52,12 +62,12 @@ start:-
 /*-----------------------------------------------------------------------------------*/
 	
 collect_personality:-
-	write('What is your personality type code?: '),nl,nl,
+	
 	getCorrectInput(Personality),nl,
 	(((Personality='why'),
 	write('.................................................................................................'),nl,nl,
 	write('Personality type code indicates personality type you have.'),nl,
-	write('Personality type along mood is one of the factors which song recommendation is based on.'),nl,
+	write('Personality type along with mood are essential factors shaping song recommendation.'),nl,
 	write('Certain personality types prefer certain music genres to other genres based on statistical data.'),nl,
 	write('.................................................................................................'),
 	nl,nl,
@@ -123,55 +133,130 @@ check('why').
 /*-----------------------------------------------------------------------------------*/
 
 giveHelp:-
-	(giveSupportQuestionsBroad1(Question1),
+	giveSupportQuestionsBroad1(Question1),
 	write(Question1),nl,nl,
-	getCorrectOptionIntrovertExtrovert(OneOfFour),nl,
-	(OneOfFour='i';OneOfFour='e'),
-	assertz(oneOfFour(OneOfFour));
-	(OneOfFour='test1'),
-	test1,
-	checkIfIntrovert(Char, Display),nl,
-	write(Display),nl,nl,
-	assertz(oneOfFour(Char))),
-	
-	
-	(giveSupportQuestionsBroad2(Question2),
+	checkout1,
+	giveSupportQuestionsBroad2(Question2),
 	write(Question2),nl,nl,
-	getCorrectOptionIntuitiveObservant(SecondOfFour),nl,
-	((SecondOfFour='n';SecondOfFour='s'),
-	assertz(oneOfFour(SecondOfFour)));
-	(SecondOfFour='test2'),
-	test2,
-	checkIfIntuitive(Char2, Display2),nl,
-	write(Display2),nl,nl,
-	assertz(oneOfFour(Char2))),
-	
-	(giveSupportQuestionsBroad3(Question3),
+	checkout2,
+	giveSupportQuestionsBroad3(Question3),
 	write(Question3),nl,nl,
-	getCorrectOptionThinkingFeeling(ThirdOfFour),nl,
-	((ThirdOfFour='t';ThirdOfFour='f'),
-	assertz(oneOfFour(ThirdOfFour)));
-	(ThirdOfFour='test3'),
-	test3,
-	checkIfThinking(Char3, Display3),nl,
-	write(Display3),nl,nl,
-	assertz(oneOfFour(Char3))),
-	
-	
-	(giveSupportQuestionsBroad4(Question4),
+	checkout3,
+	giveSupportQuestionsBroad4(Question4),
 	write(Question4),nl,nl,
-	getCorrectOptionJudgingProspecting(FourthOfFour),nl,
-	((FourthOfFour='j';FourthOfFour='p'),
-	assertz(oneOfFour(FourthOfFour)));
-	(FourthOfFour='test4'),
-	test4,
-	checkIfJudging(Char4, Display4),nl,
-	write(Display4),nl,nl,
-	assertz(oneOfFour(Char4))),
+	checkout4,
 	
 	personalityType(Number,PersonalityCode,Information),nl,nl,
 	write(Information),
 	assertz(personality(PersonalityCode)).
+
+/*-----------------------------------------------------------------------------------*/
+/* Help Introvert Extrovert ---------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------*/
+
+checkout1:-
+	getCorrectOptionIntrovertExtrovert(OneOfFour),nl,
+	
+	(((OneOfFour='why'),
+	write('.................................................................................................'),nl,nl,
+	write('Personality type consists of 4 main characteristics.'),nl,
+	write('Introvert or Extrovert defines the first characteristic.'),nl,
+	write('Personality type along with mood are essential factors shaping song recommendation.'),nl,
+	write('.................................................................................................'),
+	nl,nl,
+	checkout1);
+	
+	(OneOfFour='i';OneOfFour='e'),
+	assertz(oneOfFour(OneOfFour));
+	(OneOfFour='test1'),
+	write('This test is to determine whether you are an Introvert or Extrovert.'),nl,nl,
+	write('Respond to statements'),nl,
+	write('If statement is 0-49% true => answer f, if its 50-100% true => answer t'),nl,nl,nl,nl,
+	
+	test1,
+	checkIfIntrovert(Char, Display),nl,
+	write(Display),nl,nl,
+	assertz(oneOfFour(Char))).
+	
+/*-----------------------------------------------------------------------------------*/
+/* Help Intuitive Observant ---------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------*/
+checkout2:-
+	getCorrectOptionIntuitiveObservant(SecondOfFour),nl,
+	
+	(((SecondOfFour='why'),
+	write('.................................................................................................'),nl,nl,
+	write('Personality type consists of 4 main characteristics.'),nl,
+	write('Intuitive or Observant defines the second characteristic.'),nl,
+	write('Personality type along with mood are essential factors shaping song recommendation.'),nl,
+	write('.................................................................................................'),
+	nl,nl,
+	checkout2);
+	
+	
+	(SecondOfFour='n';SecondOfFour='s'),
+	assertz(oneOfFour(SecondOfFour));
+	(SecondOfFour='test2'),
+	write('This test is to determine whether you are an Intuitive or Observant.'),nl,nl,
+	write('Respond to statements'),nl,
+	write('If statement is 0-49% true => answer f, if its 50-100% true => answer t'),nl,nl,nl,nl,
+	test2,
+	checkIfIntuitive(Char2, Display2),nl,
+	write(Display2),nl,nl,
+	assertz(oneOfFour(Char2))).
+	
+/*-----------------------------------------------------------------------------------*/
+/* Help Thinking Feeling ------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------*/
+
+checkout3:-
+	getCorrectOptionThinkingFeeling(ThirdOfFour),nl,
+	
+	(((ThirdOfFour='why'),
+	write('.................................................................................................'),nl,nl,
+	write('Personality type consists of 4 main characteristics.'),nl,
+	write('Thinking or Feeling defines the third characteristic.'),nl,
+	write('Personality type along with mood are essential factors shaping song recommendation.'),nl,
+	write('.................................................................................................'),
+	nl,nl,
+	checkout3);
+	
+	(ThirdOfFour='t';ThirdOfFour='f'),
+	assertz(oneOfFour(ThirdOfFour));
+	(ThirdOfFour='test3'),
+	write('This test is to determine whether you are a Thinking or Feeling.'),nl,nl,
+	write('Respond to statements'),nl,
+	write('If statement is 0-49% true => answer f, if its 50-100% true => answer t'),nl,nl,nl,nl,
+	test3,
+	checkIfThinking(Char3, Display3),nl,
+	write(Display3),nl,nl,
+	assertz(oneOfFour(Char3))).
+	
+/*-----------------------------------------------------------------------------------*/
+/* Help Judging Prospecting ---------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------*/
+checkout4:-
+	getCorrectOptionJudgingProspecting(FourthOfFour),nl,
+	
+	(((FourthOfFour='why'),
+	write('.................................................................................................'),nl,nl,
+	write('Personality type consists of 4 main characteristics.'),nl,
+	write('Judging or Prospecting defines the forth characteristic.'),nl,
+	write('Personality type along with mood are essential factors shaping song recommendation.'),nl,
+	write('.................................................................................................'),
+	nl,nl,
+	checkout4);
+	
+	(FourthOfFour='j';FourthOfFour='p'),
+	assertz(oneOfFour(FourthOfFour));
+	(FourthOfFour='test4'),
+	write('This test is to determine whether you are a Judging or Prospecting.'),nl,nl,
+	write('Respond to statements'),nl,
+	write('If statement is 0-49% true => answer f, if its 50-100% true => answer t'),nl,nl,nl,nl,
+	test4,
+	checkIfJudging(Char4, Display4),nl,
+	write(Display4),nl,nl,
+	assertz(oneOfFour(Char4))).
 
 /*-----------------------------------------------------------------------------------*/
 /* Ensure user chose introvert i or extrovert e -------------------------------------*/
@@ -180,6 +265,7 @@ giveHelp:-
 getCorrectOptionIntrovertExtrovert(X):-
 	repeat,
 	write('Type i, e or test1: '),nl,
+	write('=>why '),nl,
 	read(Z),nl,
 	checkOptionIntrovertExtrovert(Z),
 	X=Z,!.
@@ -187,6 +273,7 @@ getCorrectOptionIntrovertExtrovert(X):-
 checkOptionIntrovertExtrovert('i').
 checkOptionIntrovertExtrovert('e').
 checkOptionIntrovertExtrovert('test1').
+checkOptionIntrovertExtrovert('why').
 
 /*-----------------------------------------------------------------------------------*/
 /* Ensure user chose intuitive n or observant s -------------------------------------*/
@@ -195,6 +282,7 @@ checkOptionIntrovertExtrovert('test1').
 getCorrectOptionIntuitiveObservant(X):-
 	repeat,
 	write('Type n, s or test2: '),nl,
+	write('=>why '),nl,
 	read(Z),nl,
 	checkOptionIntuitiveObservant(Z),
 	X=Z,!.
@@ -202,6 +290,7 @@ getCorrectOptionIntuitiveObservant(X):-
 checkOptionIntuitiveObservant('n').
 checkOptionIntuitiveObservant('s').
 checkOptionIntuitiveObservant('test2').
+checkOptionIntuitiveObservant('why').
 
 /*-----------------------------------------------------------------------------------*/
 /* Ensure user chose thinking t or feeling f ----------------------------------------*/
@@ -210,6 +299,7 @@ checkOptionIntuitiveObservant('test2').
 getCorrectOptionThinkingFeeling(X):-
 	repeat,
 	write('Type t, f or or test3: '),nl,
+	write('=>why '),nl,
 	read(Z),nl,
 	checkOptionThinkingFeeling(Z),
 	X=Z,!.
@@ -217,6 +307,7 @@ getCorrectOptionThinkingFeeling(X):-
 checkOptionThinkingFeeling('t').
 checkOptionThinkingFeeling('f').
 checkOptionThinkingFeeling('test3').
+checkOptionThinkingFeeling('why').
 
 /*-----------------------------------------------------------------------------------*/
 /* Ensure user chose judging j or prospecting p -------------------------------------*/
@@ -225,6 +316,7 @@ checkOptionThinkingFeeling('test3').
 getCorrectOptionJudgingProspecting(X):-
 	repeat,
 	write('Type j, p or test4: '),nl,
+	write('=>why '),nl,
 	read(Z),nl,
 	checkOptionJudgingProspecting(Z),
 	X=Z,!.
@@ -232,78 +324,254 @@ getCorrectOptionJudgingProspecting(X):-
 checkOptionJudgingProspecting('j').
 checkOptionJudgingProspecting('p').
 checkOptionJudgingProspecting('test4').
+checkOptionJudgingProspecting('why').
+
 /*-----------------------------------------------------------------------------------*/
 /* Test introvert or extrovert-------------------------------------------------------*/
 /*-----------------------------------------------------------------------------------*/
 
 
 test1:-
-	write('This test is to determine whether you are an Introvert or Extrovert.'),nl,nl,
-	write('Respond to statements'),nl,
-	write('If statement is 0-49% true => answer f, if its 50-100% true => answer t'),nl,nl,nl,nl,
-	questionsIntrovertExtrovert(Num,QIntExt),
-	write(QIntExt),nl,
-	getTrueFalse(TrueFalse1),
-	((TrueFalse1='f'),
-	assertz(introvert(Num));
-	(TrueFalse1='t'),
-	assertz(extrovert(Num))),
-	fail.
-test1.
+	questionsIntrovertExtrovert1(NumTe1Qu1,QTe1Qu1),
+	write(QTe1Qu1),nl,nl,
+	q1,
+	questionsIntrovertExtrovert2(NumTe1Qu2,QTe1Qu2),
+	write(QTe1Qu2),nl,nl,
+	q2,
+	questionsIntrovertExtrovert3(NumTe1Qu3,QTe1Qu3),
+	write(QTe1Qu3),nl,nl,
+	q3.
 	
+	
+q1:-
+	(questionsIntrovertExtrovert1(NumT1Q1,QT1Q1),
+	getTrueFalse(TrueFalseT1Q1)),
+	(((TrueFalseT1Q1='why'),
+	write('.................................................................................................'),nl,nl,
+	write('These statements are true about Extroverts\nIf you identify with them you are an Extrovert\nIf not, you are an Introvert.'),nl,
+	write('.................................................................................................'),
+	nl,nl,
+	q1);
+	
+	((TrueFalseT1Q1='f'),
+	assertz(introvert(NumT1Q1));
+	(TrueFalseT1Q1='t'),
+	assertz(extrovert(NumT1Q1)))).
+	
+q2:-
+	questionsIntrovertExtrovert2(NumT1Q2,QT1Q2),
+	getTrueFalse(TrueFalseT1Q2),
+	(((TrueFalseT1Q2='why'),
+	write('.................................................................................................'),nl,nl,
+	write('These statements are true about Extroverts\nIf you identify with them you are an Extrovert\nIf not, you are an Introvert.'),nl,
+	write('.................................................................................................'),
+	nl,nl,
+	q2);
+	
+	((TrueFalseT1Q2='f'),
+	assertz(introvert(NumT1Q2));
+	(TrueFalseT1Q2='t'),
+	assertz(extrovert(NumT1Q2)))).
+	
+q3:-
+	questionsIntrovertExtrovert2(NumT1Q3,QT1Q3),
+	getTrueFalse(TrueFalseT1Q3),
+	(((TrueFalseT1Q3='why'),
+	write('.................................................................................................'),nl,nl,
+	write('These statements are true about Extroverts\nIf you identify with them you are an Extrovert\nIf not, you are an Introvert.'),nl,
+	write('.................................................................................................'),
+	nl,nl,
+	q3);
+	
+	((TrueFalseT1Q3='f'),
+	assertz(introvert(NumT1Q3));
+	(TrueFalseT1Q3='t'),
+	assertz(extrovert(NumT1Q3)))).
+	
+
 /*-----------------------------------------------------------------------------------*/
 /* Test intuitive or observant-------------------------------------------------------*/
 /*-----------------------------------------------------------------------------------*/
 
 test2:-
-	write('This test is to determine whether you are an Intuitive or Observant.'),nl,nl,
-	write('Respond to statements'),nl,
-	write('If statement is 0-49% true => answer f, if its 50-100% true => answer t'),nl,nl,nl,nl,
-	questionsIntuitiveObservant(NumNS,QIntObs),
-	write(QIntObs),nl,
-	getTrueFalse(TrueFalse2),
-	((TrueFalse2='f'),
-	assertz(observant(NumNS));
-	(TrueFalse2='t'),
-	assertz(intuitive(NumNS))),
-	fail.
-test2.
+
+	questionsIntuitiveObservant1(NumTe2Qu1,QTe2Qu1),
+	write(QTe2Qu1),nl,nl,
+	qInt1,
+	questionsIntuitiveObservant2(NumTe2Qu2,QTe2Qu2),
+	write(QTe2Qu2),nl,nl,
+	qInt2,
+	questionsIntuitiveObservant3(NumTe2Qu3,QTe2Qu3),
+	write(QTe2Qu3),nl,nl,
+	qInt3.
+
+	
+qInt1:-
+	questionsIntuitiveObservant1(NumT2Q1,QT2Q1),
+	getTrueFalse(TrueFalseT2Q1),
+	(((TrueFalseT2Q1='why'),
+	write('.................................................................................................'),nl,nl,
+	write('These statements are true about Intuitives\nIf you identify with them you are an Intuitive\nIf not, you are an Observant.'),nl,
+	write('.................................................................................................'),
+	nl,nl,
+	qInt1);
+	
+	((TrueFalseT2Q1='f'),
+	assertz(observant(NumT2Q1));
+	(TrueFalseT2Q1='t'),
+	assertz(intuitive(NumT2Q1)))).	
+	
+qInt2:-
+	questionsIntuitiveObservant2(NumT2Q2,QT2Q2),
+	getTrueFalse(TrueFalseT2Q2),
+	(((TrueFalseT2Q2='why'),
+	write('.................................................................................................'),nl,nl,
+	write('These statements are true about Intuitives\nIf you identify with them you are an Intuitive\nIf not, you are an Observant.'),nl,
+	write('.................................................................................................'),
+	nl,nl,
+	qInt2);
+	
+	((TrueFalseT2Q2='f'),
+	assertz(observant(NumT2Q2));
+	(TrueFalseT2Q2='t'),
+	assertz(intuitive(NumT2Q2)))).	
+	
+qInt3:-
+	questionsIntuitiveObservant3(NumT2Q3,QT2Q3),
+	getTrueFalse(TrueFalseT2Q3),
+	(((TrueFalseT2Q3='why'),
+	write('.................................................................................................'),nl,nl,
+	write('These statements are true about Intuitives\nIf you identify with them you are an Intuitive\nIf not, you are an Observant.'),nl,
+	write('.................................................................................................'),
+	nl,nl,
+	qInt3);
+	
+	((TrueFalseT2Q3='f'),
+	assertz(observant(NumT2Q3));
+	(TrueFalseT2Q3='t'),
+	assertz(intuitive(NumT2Q3)))).
 
 /*-----------------------------------------------------------------------------------*/
 /* Test thinking or feeling----------------------------------------------------------*/
 /*-----------------------------------------------------------------------------------*/
 
 test3:-
-	write('This test is to determine whether you are a Thinking or Feeling.'),nl,nl,
-	write('Respond to statements'),nl,
-	write('If statement is 0-49% true => answer f, if its 50-100% true => answer t'),nl,nl,nl,nl,
-	questionsThinkingFeeling(NumTF,QThiFee),
-	write(QThiFee),nl,
-	getTrueFalse(TrueFalse3),
-	((TrueFalse3='f'),
-	assertz(feeling(NumTF));
-	(TrueFalse3='t'),
-	assertz(thinking(NumTF))),
-	fail.
-test3.
+	questionsThinkingFeeling1(NumTe3Qu1,QTe3Qu1),
+	write(QTe3Qu1),nl,nl,
+	qThi1,
+	questionsThinkingFeeling2(NumTe3Qu2,QTe3Qu2),
+	write(QTe3Qu2),nl,nl,
+	qThi2,
+	questionsThinkingFeeling3(NumTe3Qu3,QTe3Qu3),
+	write(QTe3Qu3),nl,nl,
+	qThi3.
+
+	
+qThi1:-
+	questionsThinkingFeeling1(NumT3Q1,QT3Q1),
+	getTrueFalse(TrueFalseT3Q1),
+	(((TrueFalseT3Q1='why'),
+	write('.................................................................................................'),nl,nl,
+	write('These statements are true about Thinkings\nIf you identify with them you are a Thinking\nIf not, you are a Feeling.'),nl,
+	write('.................................................................................................'),
+	nl,nl,
+	qThi1);
+	
+	((TrueFalseT3Q1='f'),
+	assertz(thinking(NumT3Q1));
+	(TrueFalseT3Q1='t'),
+	assertz(feeling(NumT3Q1)))).	
+	
+qThi2:-
+	questionsThinkingFeeling2(NumT3Q2,QT3Q2),
+	getTrueFalse(TrueFalseT3Q2),
+	(((TrueFalseT3Q2='why'),
+	write('.................................................................................................'),nl,nl,
+	write('These statements are true about Thinkings\nIf you identify with them you are a Thinking\nIf not, you are a Feeling.'),nl,
+	write('.................................................................................................'),
+	nl,nl,
+	qThi2);
+	
+	((TrueFalseT3Q2='f'),
+	assertz(thinking(NumT3Q2));
+	(TrueFalseT3Q2='t'),
+	assertz(feeling(NumT3Q2)))).	
+	
+qThi3:-
+	questionsThinkingFeeling3(NumT3Q3,QT3Q3),
+	getTrueFalse(TrueFalseT3Q3),
+	(((TrueFalseT3Q3='why'),
+	write('.................................................................................................'),nl,nl,
+	write('These statements are true about Thinkings\nIf you identify with them you are a Thinking\nIf not, you are a Feeling.'),nl,
+	write('.................................................................................................'),
+	nl,nl,
+	qThi3);
+	
+	((TrueFalseT3Q3='f'),
+	assertz(thinking(NumT3Q3));
+	(TrueFalseT3Q3='t'),
+	assertz(feeling(NumT3Q3)))).
 
 /*-----------------------------------------------------------------------------------*/
 /* Test judging or prospecting-------------------------------------------------------*/
 /*-----------------------------------------------------------------------------------*/
 
 test4:-
-	write('This test is to determine whether you are a Judging or Prospecting.'),nl,nl,
-	write('Respond to statements'),nl,
-	write('If statement is 0-49% true => answer f, if its 50-100% true => answer t'),nl,nl,nl,nl,
-	questionsJudgingProspecting(NumJP,QJudPro),
-	write(QJudPro),nl,
-	getTrueFalse(TrueFalse4),
-	((TrueFalse4='f'),
-	assertz(prospecting(NumJP));
-	(TrueFalse4='t'),
-	assertz(judging(NumJP))),
-	fail.
-test4.
+	questionsJudgingProspecting1(NumTe4Qu1,QTe4Qu1),
+	write(QTe4Qu1),nl,nl,
+	qJud1,
+	questionsJudgingProspecting2(NumTe4Qu2,QTe4Qu2),
+	write(QTe4Qu2),nl,nl,
+	qJud2,
+	questionsJudgingProspecting3(NumTe4Qu3,QTe4Qu3),
+	write(QTe4Qu3),nl,nl,
+	qJud3.
+
+	
+qJud1:-
+	questionsJudgingProspecting1(NumT4Q1,QT4Q1),
+	getTrueFalse(TrueFalseT4Q1),
+	(((TrueFalseT4Q1='why'),
+	write('.................................................................................................'),nl,nl,
+	write('These statements are true about Judgings\nIf you identify with them you are a Judging\nIf not, you are a Prospecting.'),nl,
+	write('.................................................................................................'),
+	nl,nl,
+	qJud1);
+	
+	((TrueFalseT4Q1='f'),
+	assertz(prospecting(NumT4Q1));
+	(TrueFalseT4Q1='t'),
+	assertz(judging(NumT4Q1)))).	
+	
+qJud2:-
+	questionsJudgingProspecting2(NumT4Q2,QT4Q2),
+	getTrueFalse(TrueFalseT4Q2),
+	(((TrueFalseT4Q2='why'),
+	write('.................................................................................................'),nl,nl,
+	write('These statements are true about Judgings\nIf you identify with them you are a Judging\nIf not, you are a Prospecting.'),nl,
+	write('.................................................................................................'),
+	nl,nl,
+	qJud2);
+	
+	((TrueFalseT4Q2='f'),
+	assertz(prospecting(NumT4Q2));
+	(TrueFalseT4Q2='t'),
+	assertz(judging(NumT4Q2)))).	
+	
+qJud3:-
+	questionsJudgingProspecting3(NumT4Q3,QT4Q3),
+	getTrueFalse(TrueFalseT4Q3),
+	(((TrueFalseT4Q3='why'),
+	write('.................................................................................................'),nl,nl,
+	write('These statements are true about Judgings\nIf you identify with them you are a Judging\nIf not, you are a Prospecting.'),nl,
+	write('.................................................................................................'),
+	nl,nl,
+	qJud3);
+	
+	((TrueFalseT4Q3='f'),
+	assertz(prospecting(NumT4Q3));
+	(TrueFalseT4Q3='t'),
+	assertz(judging(NumT4Q3)))).
 
 /*-----------------------------------------------------------------------------------*/
 /* Ensure user answers true t or false f --------------------------------------------*/
@@ -312,12 +580,14 @@ test4.
 getTrueFalse(X):-
 	repeat,
 	write('Type t or f: '),nl,
+	write('=>why '),nl,
 	read(Z),nl,
 	checkTrueFalse(Z),
 	X=Z,!.
 	
 checkTrueFalse('t').
-checkTrueFalse('f').	
+checkTrueFalse('f').
+checkTrueFalse('why').
 
 
 /*-----------------------------------------------------------------------------------*/
@@ -432,10 +702,21 @@ personalityAndGenres(16,esfp,'alternative', 'rock', 'rap'):-personality(esfp).
 /*-----------------------------------------------------------------------------------*/
 
 collect_mood:-
-	nl,
-	write('What is your current mood, good or bad?: '),nl,nl,
+	
 	getCorrectMood(Mood),nl,
-	assertz(mood(Mood)).
+	
+	(((Mood='why'),
+	write('.................................................................................................'),nl,nl,
+	write('Mood is essential factor shaping song recommendation.'),nl,
+	write('Song ambience will reflect your mood.'),nl,
+	write('.................................................................................................'),
+	nl,nl,
+	collect_mood);
+	
+	(Mood='good';Mood='bad'),
+	assertz(mood(Mood))).
+	
+	
 	
 /*-----------------------------------------------------------------------------------*/
 /* Ensure user types good or bad mood -------------------------------------*/
@@ -444,28 +725,37 @@ collect_mood:-
 getCorrectMood(X):-
 	repeat,
 	write('Type good or bad: '),nl,
+	write('=>why'),nl,
 	read(Z),nl,
 	checkMood(Z),
 	X=Z,!.
 	
 checkMood('good').
 checkMood('bad').
+checkMood('why').
 
 /*-----------------------------------------------------------------------------------*/
 /* Collect genre preferation --------------------------------------------------------*/
 /*-----------------------------------------------------------------------------------*/
 
 collect_preferred_genre:-
-	personalityAndGenres(No,Code,G1,G2,G3),
-	nl,nl,nl,nl,
-	write('Recommended genres for '),write(Code),write(' personality type: '),nl,
-	write(G1),nl,
-	write(G2),nl,
-	write(G3),nl,nl,
-	write('Choose from the 3 above options for a song tailored to your personality type'),nl,
-	write('UNLESS happy about the 3 genres, type your own genre'),nl,nl,nl,nl,
-	getAllowedGenre(GenrePreferation),
-	assertz(genrePreferation(GenrePreferation)).
+
+	getAllowedGenre(GenrePreferation),nl,
+	
+	(((GenrePreferation='why'),
+	write('.................................................................................................'),nl,nl,
+	write('You are asked about genre preferation to ensure you are happy about suggested genre.'),nl,
+	write('UNLESS you are happy, you can always choose the one you believe is a better match for your personality.'),nl,
+	write('.................................................................................................'),
+	nl,nl,
+	collect_preferred_genre);
+	
+	(GenrePreferation='electronic';GenrePreferation='classical';GenrePreferation='metal';GenrePreferation='rock';
+	GenrePreferation='alternative';GenrePreferation='indie';GenrePreferation='blues';GenrePreferation='indie_rock';
+	GenrePreferation='folk';GenrePreferation='world';GenrePreferation='pop';GenrePreferation='soft_rock';
+	GenrePreferation='musicals';GenrePreferation='country';GenrePreferation='classic_rock';GenrePreferation='hip_hop';
+	GenrePreferation='rap'),
+	assertz(genrePreferation(GenrePreferation))).
 	
 	
 
@@ -481,6 +771,7 @@ getAllowedGenre(X):-
 	write('alternative, indie, blues, indie_rock,'),nl,
 	write('folk, world, pop, soft_rock,'),nl,
 	write('musicals, country, classic_rock, hip_hop, rap'),nl,
+	write('=>why'),nl,
 	read(Z),nl,
 	checkGenre(Z),
 	X=Z,!.
@@ -502,6 +793,7 @@ checkGenre('country').
 checkGenre('classic_rock').
 checkGenre('hip_hop').
 checkGenre('rap').
+checkGenre('why').
 
 
 
@@ -516,7 +808,7 @@ song(1,'Riton, RAYE - I Dont Want You','https://www.youtube.com/watch?v=Bkwy6OD5
 	genrePreferation(electronic), mood(good).
 song(2,'Martin Garrix - Animals','https://www.youtube.com/watch?v=gCYcHz2k5x0'):-
 	genrePreferation(electronic), mood(bad).
-song(3,'XAVER VARNUS PLAYS BACHS TOCCATA FUGUE IN THE BERLINER DOM','https://www.youtube.com/watch?v=FHNLdHe8uxY'):-
+song(3,'J.S. Bach - Toccata and Fugue in D minor BWV 565','https://www.youtube.com/watch?v=Nnuq9PXbywA'):-
 	genrePreferation(classical), mood(good).
 song(4,'Beethoven - Fur Elise','https://www.youtube.com/watch?v=_mVW8tgGY_w'):-
 	genrePreferation(classical), mood(bad).
@@ -592,33 +884,33 @@ showSong:-
 /* Questions for Introverts vs Extroverts -------------------------------------------*/
 /*-----------------------------------------------------------------------------------*/
 
-questionsIntrovertExtrovert(1,'I love public speaking.').
-questionsIntrovertExtrovert(2,'I enjoy meeting new people.').
-questionsIntrovertExtrovert(3,'Face to face or video/audio chat is my preferred way of communication.').
+questionsIntrovertExtrovert1(1,'I love public speaking.').
+questionsIntrovertExtrovert2(2,'I enjoy meeting new people.').
+questionsIntrovertExtrovert3(3,'Face to face or video/audio chat is my preferred way of communication.').
 
 /*-----------------------------------------------------------------------------------*/
 /* Questions for Intuitive vs Observant ---------------------------------------------*/
 /*-----------------------------------------------------------------------------------*/	
 
-questionsIntuitiveObservant(1,'I spend a lot of time questioning, wondering and thinking about what if scenarios').
-questionsIntuitiveObservant(2,'I am more theoretical rather than practical.').		
-questionsIntuitiveObservant(3,'My mind often drifts off during a conversation.').
+questionsIntuitiveObservant1(1,'I spend a lot of time questioning, wondering and thinking about what if scenarios').
+questionsIntuitiveObservant2(2,'I am more theoretical rather than practical.').		
+questionsIntuitiveObservant3(3,'My mind often drifts off during a conversation.').
 
 /*-----------------------------------------------------------------------------------*/
 /* Questions for Thinking vs Feeling ------------------------------------------------*/
 /*-----------------------------------------------------------------------------------*/
 
-questionsThinkingFeeling(1,'I make decisions with my head rather than with heart.').
-questionsThinkingFeeling(2,'I restrain from acting when experiencing extreme emotions.').
-questionsThinkingFeeling(3,'I assess different possibilities using logic and scientific approach.').
+questionsThinkingFeeling1(1,'I make decisions with my head rather than with heart.').
+questionsThinkingFeeling2(2,'I restrain from acting when experiencing extreme emotions.').
+questionsThinkingFeeling3(3,'I assess different possibilities using logic and scientific approach.').
 
 /*------------------------------------------------------------------------------------*/
 /* Questions for Judging vs Prospecting ---------------------------------------------*/
 /*-----------------------------------------------------------------------------------*/
 
-questionsJudgingProspecting(1,'I stick to the plan rather than going with the flow.').
-questionsJudgingProspecting(2,'Duties and responsibilities are above everything else.').
-questionsJudgingProspecting(3,'I prepare a lot of back up plans.').
+questionsJudgingProspecting1(1,'I stick to the plan rather than going with the flow.').
+questionsJudgingProspecting2(2,'Duties and responsibilities are above everything else.').
+questionsJudgingProspecting3(3,'I prepare a lot of back up plans.').
 
 
 
