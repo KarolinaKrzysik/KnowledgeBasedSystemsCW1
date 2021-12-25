@@ -332,20 +332,16 @@ checkOptionJudgingProspecting('why').
 
 
 test1:-
-	questionsIntrovertExtrovert1(NumTe1Qu1,QTe1Qu1),
-	write(QTe1Qu1),nl,nl,
 	q1,
-	questionsIntrovertExtrovert2(NumTe1Qu2,QTe1Qu2),
-	write(QTe1Qu2),nl,nl,
 	q2,
-	questionsIntrovertExtrovert3(NumTe1Qu3,QTe1Qu3),
-	write(QTe1Qu3),nl,nl,
 	q3.
 	
 	
 q1:-
-	(questionsIntrovertExtrovert1(NumT1Q1,QT1Q1),
-	getTrueFalse(TrueFalseT1Q1)),
+	questionsIntrovertExtrovert1(NumT1Q1,QT1Q1),
+	write(QT1Q1),nl,nl,
+	/*(questionsIntrovertExtrovert1(NumTe1Qu1,QTe1Qu1),*/
+	getTrueFalse(TrueFalseT1Q1),
 	(((TrueFalseT1Q1='why'),
 	write('.................................................................................................'),nl,nl,
 	write('These statements are true about Extroverts\nIf you identify with them you are an Extrovert\nIf not, you are an Introvert.'),nl,
@@ -359,7 +355,9 @@ q1:-
 	assertz(extrovert(NumT1Q1)))).
 	
 q2:-
-	questionsIntrovertExtrovert2(NumT1Q2,QT1Q2),
+questionsIntrovertExtrovert2(NumT1Q2,QT1Q2),
+	write(QT1Q2),nl,nl,
+	/*questionsIntrovertExtrovert2(NumT1Q2,QTe1Qu2),*/
 	getTrueFalse(TrueFalseT1Q2),
 	(((TrueFalseT1Q2='why'),
 	write('.................................................................................................'),nl,nl,
@@ -374,7 +372,9 @@ q2:-
 	assertz(extrovert(NumT1Q2)))).
 	
 q3:-
-	questionsIntrovertExtrovert2(NumT1Q3,QT1Q3),
+	questionsIntrovertExtrovert3(NumT1Q3,QT1Q3),
+	write(QT1Q3),nl,nl,
+	/*questionsIntrovertExtrovert2(NumT1Q3,QTe1Qu3),*/
 	getTrueFalse(TrueFalseT1Q3),
 	(((TrueFalseT1Q3='why'),
 	write('.................................................................................................'),nl,nl,
@@ -395,19 +395,14 @@ q3:-
 
 test2:-
 
-	questionsIntuitiveObservant1(NumTe2Qu1,QTe2Qu1),
-	write(QTe2Qu1),nl,nl,
 	qInt1,
-	questionsIntuitiveObservant2(NumTe2Qu2,QTe2Qu2),
-	write(QTe2Qu2),nl,nl,
 	qInt2,
-	questionsIntuitiveObservant3(NumTe2Qu3,QTe2Qu3),
-	write(QTe2Qu3),nl,nl,
 	qInt3.
 
 	
 qInt1:-
 	questionsIntuitiveObservant1(NumT2Q1,QT2Q1),
+	write(QT2Q1),nl,nl,
 	getTrueFalse(TrueFalseT2Q1),
 	(((TrueFalseT2Q1='why'),
 	write('.................................................................................................'),nl,nl,
@@ -423,6 +418,7 @@ qInt1:-
 	
 qInt2:-
 	questionsIntuitiveObservant2(NumT2Q2,QT2Q2),
+	write(QT2Q2),nl,nl,
 	getTrueFalse(TrueFalseT2Q2),
 	(((TrueFalseT2Q2='why'),
 	write('.................................................................................................'),nl,nl,
@@ -438,6 +434,7 @@ qInt2:-
 	
 qInt3:-
 	questionsIntuitiveObservant3(NumT2Q3,QT2Q3),
+	write(QT2Q3),nl,nl,
 	getTrueFalse(TrueFalseT2Q3),
 	(((TrueFalseT2Q3='why'),
 	write('.................................................................................................'),nl,nl,
@@ -456,19 +453,15 @@ qInt3:-
 /*-----------------------------------------------------------------------------------*/
 
 test3:-
-	questionsThinkingFeeling1(NumTe3Qu1,QTe3Qu1),
-	write(QTe3Qu1),nl,nl,
+	
 	qThi1,
-	questionsThinkingFeeling2(NumTe3Qu2,QTe3Qu2),
-	write(QTe3Qu2),nl,nl,
 	qThi2,
-	questionsThinkingFeeling3(NumTe3Qu3,QTe3Qu3),
-	write(QTe3Qu3),nl,nl,
 	qThi3.
 
 	
 qThi1:-
 	questionsThinkingFeeling1(NumT3Q1,QT3Q1),
+	write(QT3Q1),nl,nl,
 	getTrueFalse(TrueFalseT3Q1),
 	(((TrueFalseT3Q1='why'),
 	write('.................................................................................................'),nl,nl,
@@ -478,12 +471,13 @@ qThi1:-
 	qThi1);
 	
 	((TrueFalseT3Q1='f'),
-	assertz(thinking(NumT3Q1));
+	assertz(feeling(NumT3Q1));
 	(TrueFalseT3Q1='t'),
-	assertz(feeling(NumT3Q1)))).	
+	assertz(thinking(NumT3Q1)))).	
 	
 qThi2:-
 	questionsThinkingFeeling2(NumT3Q2,QT3Q2),
+	write(QT3Q2),nl,nl,
 	getTrueFalse(TrueFalseT3Q2),
 	(((TrueFalseT3Q2='why'),
 	write('.................................................................................................'),nl,nl,
@@ -493,12 +487,13 @@ qThi2:-
 	qThi2);
 	
 	((TrueFalseT3Q2='f'),
-	assertz(thinking(NumT3Q2));
+	assertz(feeling(NumT3Q2));
 	(TrueFalseT3Q2='t'),
-	assertz(feeling(NumT3Q2)))).	
+	assertz(thinking(NumT3Q2)))).	
 	
 qThi3:-
 	questionsThinkingFeeling3(NumT3Q3,QT3Q3),
+	write(QT3Q3),nl,nl,
 	getTrueFalse(TrueFalseT3Q3),
 	(((TrueFalseT3Q3='why'),
 	write('.................................................................................................'),nl,nl,
@@ -508,28 +503,23 @@ qThi3:-
 	qThi3);
 	
 	((TrueFalseT3Q3='f'),
-	assertz(thinking(NumT3Q3));
+	assertz(feeling(NumT3Q3));
 	(TrueFalseT3Q3='t'),
-	assertz(feeling(NumT3Q3)))).
+	assertz(thinking(NumT3Q3)))).
 
 /*-----------------------------------------------------------------------------------*/
 /* Test judging or prospecting-------------------------------------------------------*/
 /*-----------------------------------------------------------------------------------*/
 
 test4:-
-	questionsJudgingProspecting1(NumTe4Qu1,QTe4Qu1),
-	write(QTe4Qu1),nl,nl,
 	qJud1,
-	questionsJudgingProspecting2(NumTe4Qu2,QTe4Qu2),
-	write(QTe4Qu2),nl,nl,
 	qJud2,
-	questionsJudgingProspecting3(NumTe4Qu3,QTe4Qu3),
-	write(QTe4Qu3),nl,nl,
 	qJud3.
 
 	
 qJud1:-
 	questionsJudgingProspecting1(NumT4Q1,QT4Q1),
+	write(QT4Q1),nl,nl,
 	getTrueFalse(TrueFalseT4Q1),
 	(((TrueFalseT4Q1='why'),
 	write('.................................................................................................'),nl,nl,
@@ -545,6 +535,7 @@ qJud1:-
 	
 qJud2:-
 	questionsJudgingProspecting2(NumT4Q2,QT4Q2),
+	write(QT4Q2),nl,nl,
 	getTrueFalse(TrueFalseT4Q2),
 	(((TrueFalseT4Q2='why'),
 	write('.................................................................................................'),nl,nl,
@@ -560,6 +551,7 @@ qJud2:-
 	
 qJud3:-
 	questionsJudgingProspecting3(NumT4Q3,QT4Q3),
+	write(QT4Q3),nl,nl,
 	getTrueFalse(TrueFalseT4Q3),
 	(((TrueFalseT4Q3='why'),
 	write('.................................................................................................'),nl,nl,
@@ -596,8 +588,8 @@ checkTrueFalse('why').
 
 checkIfIntrovert(i, 'You are an Introvert.'):-(introvert(1),introvert(2),introvert(3));
 (introvert(1),introvert(2));(introvert(1),introvert(3));(introvert(2),introvert(3)).
-checkIfIntrovert(e, 'You are an Extrovert.'):-(extrovert(1),extrovert(2),extrovert(3));
-(extrovert(1),extrovert(2));(extrovert(1),extrovert(3));(extrovert(2),extrovert(3)).
+checkIfIntrovert(e, 'You are an Extrovert.'):-((extrovert(1),extrovert(2),extrovert(3));
+(extrovert(1),extrovert(2));(extrovert(1),extrovert(3));(extrovert(2),extrovert(3))).
 
 /*-----------------------------------------------------------------------------------*/
 /* Conditions for Intuitive vs Observant ------------------------------------------*/
@@ -804,82 +796,124 @@ checkGenre('why').
 /* Songs ----------------------------------------------------------------------------*/
 /*-----------------------------------------------------------------------------------*/
 
-song(1,'Riton, RAYE - I Dont Want You','https://www.youtube.com/watch?v=Bkwy6OD55Xo'):-
+song(1,'Riton, RAYE - I Dont Want You','https://www.youtube.com/watch?v=Bkwy6OD55Xo',electronic,good):-
 	genrePreferation(electronic), mood(good).
-song(2,'Martin Garrix - Animals','https://www.youtube.com/watch?v=gCYcHz2k5x0'):-
+song(2,'Martin Garrix - Animals','https://www.youtube.com/watch?v=gCYcHz2k5x0',electronic,bad):-
 	genrePreferation(electronic), mood(bad).
-song(3,'J.S. Bach - Toccata and Fugue in D minor BWV 565','https://www.youtube.com/watch?v=Nnuq9PXbywA'):-
+song(3,'J.S. Bach - Toccata and Fugue in D minor BWV 565','https://www.youtube.com/watch?v=Nnuq9PXbywA',classical,good):-
 	genrePreferation(classical), mood(good).
-song(4,'Beethoven - Fur Elise','https://www.youtube.com/watch?v=_mVW8tgGY_w'):-
+song(4,'Beethoven - Fur Elise','https://www.youtube.com/watch?v=_mVW8tgGY_w',classical,good):-
 	genrePreferation(classical), mood(bad).
-song(5,'Master Of Puppets','https://www.youtube.com/watch?v=S7blkui3nQc'):-
+song(5,'Master Of Puppets','https://www.youtube.com/watch?v=S7blkui3nQc',metal,good):-
 	genrePreferation(metal), mood(good).
-song(6,'Iron Maiden - Hallowed Be Thy Name','https://www.youtube.com/watch?v=J51LPlP-s9o'):-
+song(6,'Iron Maiden - Hallowed Be Thy Name','https://www.youtube.com/watch?v=J51LPlP-s9o',metal,bad):-
 	genrePreferation(metal), mood(bad).
-song(7,'AC/DC - Back In Black','https://www.youtube.com/watch?v=pAgnJDJN4VA'):-
+song(7,'AC/DC - Back In Black','https://www.youtube.com/watch?v=pAgnJDJN4VA',rock,good):-
 	genrePreferation(rock), mood(good).
-song(8,'Queen - Somebody To Love','https://www.youtube.com/watch?v=kijpcUv-b8M'):-
+song(8,'Queen - Somebody To Love','https://www.youtube.com/watch?v=kijpcUv-b8M',rock,bad):-
 	genrePreferation(rock), mood(bad).
-song(9,'Creed - My Sacrifice','https://www.youtube.com/watch?v=O-fyNgHdmLI'):-
+song(9,'Creed - My Sacrifice','https://www.youtube.com/watch?v=O-fyNgHdmLI',alternative,good):-
 	genrePreferation(alternative), mood(good).
-song(10,'3 Doors Down - Here Without You','https://www.youtube.com/watch?v=kPBzTxZQG5Q'):-
+song(10,'3 Doors Down - Here Without You','https://www.youtube.com/watch?v=kPBzTxZQG5Q',alternative,bad):-
 	genrePreferation(alternative), mood(bad).
-song(11,'Joy Division - Love Will Tear Us Apart','https://www.youtube.com/watch?v=zuuObGsB0No'):-
+song(11,'Joy Division - Love Will Tear Us Apart','https://www.youtube.com/watch?v=zuuObGsB0No',indie,good):-
 	genrePreferation(indie), mood(good).
-song(12,'The Smiths - This Charming Man','https://www.youtube.com/watch?v=cJRP3LRcUFg'):-
+song(12,'The Smiths - This Charming Man','https://www.youtube.com/watch?v=cJRP3LRcUFg',indie,bad):-
 	genrePreferation(indie), mood(bad).
-song(13,'Sam Myers - I Got The Blues','https://www.youtube.com/watch?v=N-KluFB9A8M'):-
+song(13,'Sam Myers - I Got The Blues','https://www.youtube.com/watch?v=N-KluFB9A8M',blues, good):-
 	genrePreferation(blues), mood(good).
-song(14,'Chris Bell 100 Blues - Cold Hearted Woman','https://www.youtube.com/watch?v=AOWmPwKbcn4'):-
+song(14,'Chris Bell 100 Blues - Cold Hearted Woman','https://www.youtube.com/watch?v=AOWmPwKbcn4',blues, bad):-
 	genrePreferation(blues), mood(bad).
-song(15,'Parks, Squares and Alleys - We Are Not Just Friends','https://www.youtube.com/watch?v=M3IWsWzSo14'):-
+song(15,'Parks, Squares and Alleys - We Are Not Just Friends','https://www.youtube.com/watch?v=M3IWsWzSo14',indie_rock,good):-
 	genrePreferation(indie_rock), mood(good).
-song(16,'Johnny Goth - Feels like We Are Dying','https://www.youtube.com/watch?v=Jej2f7tOsvI'):-
+song(16,'Johnny Goth - Feels like We Are Dying','https://www.youtube.com/watch?v=Jej2f7tOsvI',indie_rock,bad):-
 	genrePreferation(indie_rock), mood(bad).
-song(17,'This Land is Your Land- Woody Guthrie','https://www.youtube.com/watch?v=Ol0rRdF5L1c'):-
+song(17,'This Land is Your Land- Woody Guthrie','https://www.youtube.com/watch?v=Ol0rRdF5L1c',folk,good):-
 	genrePreferation(folk), mood(good).
-song(18,'Bob Dylan - Like a Rolling Stone','https://www.youtube.com/watch?v=IwOfCgkyEj0'):-
+song(18,'Bob Dylan - Like a Rolling Stone','https://www.youtube.com/watch?v=IwOfCgkyEj0',folk,bad):-
 	genrePreferation(folk), mood(bad).
-song(19,'1 Hour of World Music - Music From Different Cultures','https://www.youtube.com/watch?v=DAhLXLj4UuE'):-
+song(19,'1 Hour of World Music - Music From Different Cultures','https://www.youtube.com/watch?v=DAhLXLj4UuE',world,good):-
 	genrePreferation(world), mood(good).
-song(20,'Beautiful World Music SET - MASALA','https://www.youtube.com/watch?v=tp_y1B1eQeo'):-
+song(20,'Beautiful World Music SET - MASALA','https://www.youtube.com/watch?v=tp_y1B1eQeo',world,bad):-
 	genrePreferation(world), mood(bad).
-song(21,'Ed Sheeran - Shape of You','https://www.youtube.com/watch?v=JGwWNGJdvx8'):-
+song(21,'Ed Sheeran - Shape of You','https://www.youtube.com/watch?v=JGwWNGJdvx8',pop,good):-
 	genrePreferation(pop), mood(good).
-song(22,'Sam Smith - I am Not The Only One','https://www.youtube.com/watch?v=nCkpzqqog4k'):-
+song(22,'Sam Smith - I am Not The Only One','https://www.youtube.com/watch?v=nCkpzqqog4k',pop,bad):-
 	genrePreferation(pop), mood(bad).
-song(23,'Foreigner - I Want To Know What Love Is','https://www.youtube.com/watch?v=r3Pr1_v7hsw'):-
+song(23,'Foreigner - I Want To Know What Love Is','https://www.youtube.com/watch?v=r3Pr1_v7hsw',soft_rock,good):-
 	genrePreferation(soft_rock), mood(good).
-song(24,'The Police - Every Breath You Take','https://www.youtube.com/watch?v=OMOGaugKpzs'):-
+song(24,'The Police - Every Breath You Take','https://www.youtube.com/watch?v=OMOGaugKpzs',soft_rock,bad):-
 	genrePreferation(soft_rock), mood(bad).
-song(25,'Sister Act- I Will Follow Him','https://www.youtube.com/watch?v=VPpd-6X3tEo'):-
+song(25,'Sister Act- I Will Follow Him','https://www.youtube.com/watch?v=VPpd-6X3tEo',musicals,good):-
 	genrePreferation(musicals), mood(good).
-song(26,'Sister Act 2 - Oh Happy Day','https://www.youtube.com/watch?v=z-4mtA6Z88k'):-
+song(26,'Sister Act 2 - Oh Happy Day','https://www.youtube.com/watch?v=z-4mtA6Z88k',musicals,bad):-
 	genrePreferation(musicals), mood(bad).
-song(27,'Alan Jackson - Remember When','https://www.youtube.com/watch?v=TTA2buWlNyM'):-
+song(27,'Alan Jackson - Remember When','https://www.youtube.com/watch?v=TTA2buWlNyM',country,good):-
 	genrePreferation(country), mood(good).
-song(28,'Kenny Rogers - The Gambler','https://www.youtube.com/watch?v=7hx4gdlfamo'):-
+song(28,'Kenny Rogers - The Gambler','https://www.youtube.com/watch?v=7hx4gdlfamo',country,bad):-
 	genrePreferation(country), mood(bad).
-song(29,'Creedence Clearwater Revival: Have You Ever Seen The Rain?','https://www.youtube.com/watch?v=Gu2pVPWGYMQ'):-
+song(29,'Creedence Clearwater Revival: Have You Ever Seen The Rain?','https://www.youtube.com/watch?v=Gu2pVPWGYMQ',classic_rock,good):-
 	genrePreferation(classic_rock), mood(good).
-song(30,'Dire Straits - Sultans Of Swing','https://www.youtube.com/watch?v=h0ffIJ7ZO4U'):-
+song(30,'Dire Straits - Sultans Of Swing','https://www.youtube.com/watch?v=h0ffIJ7ZO4U',classic_rock,bad):-
 	genrePreferation(classic_rock), mood(bad).
-song(31,'I Got 5 On It','https://www.youtube.com/watch?v=Dsct-TZ26Pw'):-
+song(31,'I Got 5 On It','https://www.youtube.com/watch?v=Dsct-TZ26Pw',hip_hop,good):-
 	genrePreferation(hip_hop), mood(good).
-song(32,'Fugees - Fu-Gee-La','https://www.youtube.com/watch?v=MPlb9HoOCxs'):-
+song(32,'Fugees - Fu-Gee-La','https://www.youtube.com/watch?v=MPlb9HoOCxs',hip_hop,bad):-
 	genrePreferation(hip_hop), mood(bad).
-song(33,'Eminem - Lose Yourself','https://www.youtube.com/watch?v=_Yhyp-_hX2s'):-
+song(33,'Eminem - Lose Yourself','https://www.youtube.com/watch?v=_Yhyp-_hX2s',rap,good):-
 	genrePreferation(rap), mood(good).
-song(34,'Eminem - Without Me','https://www.youtube.com/watch?v=YVkUvmDQ3HY'):-
+song(34,'Eminem - Without Me','https://www.youtube.com/watch?v=YVkUvmDQ3HY',rap,bad):-
 	genrePreferation(rap), mood(bad).
 
 showSong:-
 	nl,nl,nl,
 	write('Your song recommendation: '),nl,
-	song(Number,Title,Url),
+	song(Number,Title,Url,Gen,Moodd),
 	write(Title),nl,
-	write(Url),nl.
+	write(Url),nl,
+	how.
 	
+	
+how:-
+	nl,nl,nl,nl,
+	write('Type end to finish or how to find out how system produced your song recommendation'),nl,nl,
+	getHow(How),
+	((How='how'),
+	write('.................................................................................................'),nl,nl,
+	personalityAndGenres(A,B,C,D,E),
+	write('Your personality type: '),
+	write(B),nl,
+	song(Number,Title,Url,Gen,Moodd),
+	write('Your genre preferation: '),
+	write(Gen),nl,
+	write('Your current mood: '),
+	write(Moodd),nl,
+	write('Song recommended for these parametres: '),nl, 
+	write(Title),nl,
+	write(Url),
+	write('.'),nl,
+	write('.................................................................................................'),
+	nl,nl);
+	
+	((How='end'),
+	write('Thank you for using system. ')).
+	
+
+/*-----------------------------------------------------------------------------------*/
+/* Check if user typed how -------------------------------------*/
+/*-----------------------------------------------------------------------------------*/
+
+getHow(X):-
+	repeat,
+	write('Type end to finish: '),nl,
+	write('=>how'),nl,
+	read(Z),nl,
+	checkHow(Z),
+	X=Z,!.
+	
+checkHow('how').
+checkHow('end').
+
 /*-----------------------------------------------------------------------------------*/
 /* Questions for Introverts vs Extroverts -------------------------------------------*/
 /*-----------------------------------------------------------------------------------*/
