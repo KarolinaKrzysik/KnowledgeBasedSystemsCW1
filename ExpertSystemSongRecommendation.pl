@@ -23,8 +23,10 @@ feeling(a).
 judging(a).
 prospecting(a).
 
+/*Drive predicate!!!*/
 suggest_song:-
 
+	/*Clean database in case there was a disruption of system operation in the not last procedure*/
 	retractall(personality(_)),
 	retractall(genrePreferation(_)),
 	retractall(mood(_)),
@@ -953,7 +955,7 @@ questionsIntrovertExtrovert3(3,'Face to face or video/audio chat is my preferred
 /* Questions for Intuitive vs Observant ---------------------------------------------*/
 /*-----------------------------------------------------------------------------------*/	
 
-questionsIntuitiveObservant1(1,'I spend a lot of time questioning, wondering and thinking about what if scenarios').
+questionsIntuitiveObservant1(1,'I spend a lot of time questioning, wondering and thinking about what if scenarios.').
 questionsIntuitiveObservant2(2,'I am more theoretical rather than practical.').		
 questionsIntuitiveObservant3(3,'My mind often drifts off during a conversation.').
 
